@@ -48,7 +48,7 @@ class MY_TTS:
             elif data["type"] == "api":
                 from openai import OpenAI
                 
-                client = OpenAI(api_key=data["api_key"])
+                client = OpenAI(base_url=data["api_ip_port"], api_key=data["api_key"])
 
                 response = client.audio.speech.create(
                     model=data["model"],

@@ -225,10 +225,15 @@ with gr.Blocks() as demo:
                 chatgpt_preset_input = gr.Textbox(value=config.get("chatgpt", "preset"), label="预设", lines=5)
         with gr.Group():
             with gr.Row():
-                openai_tts_api_ip_port_input = gr.Textbox(label="OpenAI TTS API地址", value=config.get("openai_tts", "api_ip_port"))
+                openai_tts_api_ip_port_input = gr.Textbox(
+                    label="OpenAI TTS API地址", 
+                    value=config.get("openai_tts", "api_ip_port"),
+                    lines=1
+                )
                 openai_tts_api_key_input = gr.Textbox(
                     label="OpenAI API密钥", 
-                    value=config.get("openai_tts", "api_key")
+                    value=config.get("openai_tts", "api_key"),
+                    lines=1
                 )
             with gr.Row():
                 openai_tts_model_dropdown = gr.Dropdown(
