@@ -2,7 +2,7 @@
   "openai": {
     "api": "https://api.openai.com/v1",
     "api_key": [
-      "此处填写您的OpenAI API密钥"
+      "此处填写您的OpenAI-API密钥"
     ]
   },
   "chatgpt": {
@@ -26,6 +26,9 @@
     "api_ip_port": "https://api.openai.com/v1",
     "model": "tts-1",
     "voice": "onyx",
-    "api_key": "此处填写您的OpenAI API密钥"
+    "api_key": "此处填写您的OpenAI-API密钥"
+  },
+  "gradio": {
+    "share": true
   }
 }

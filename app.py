@@ -100,7 +100,7 @@ def send_msg(audio, text):
         return None
     
 # 保存配置
-def save_config(api, api_key, model, temperature, max_tokens, top_p, presence_penalty, frequency_penalty, preset, openai_tts_model, openai_tts_voice):
+def save_config(api, api_key, model, temperature, max_tokens, top_p, presence_penalty, frequency_penalty, preset, openai_tts_api_ip_port, openai_tts_api_key, openai_tts_model, openai_tts_voice):
     try:
         with open(config_path, 'r', encoding="utf-8") as config_file:
             config_data = json.load(config_file)
@@ -136,6 +136,8 @@ def save_config(api, api_key, model, temperature, max_tokens, top_p, presence_pe
     config_data["chatgpt"]["presence_penalty"] = float(presence_penalty)
     config_data["chatgpt"]["frequency_penalty"] = float(frequency_penalty)
     config_data["chatgpt"]["preset"] = preset
+    config_data["openai_tts"]["api_ip_port"] = openai_tts_api_ip_port
+    config_data["openai_tts"]["api_key"] = openai_tts_api_key
     config_data["openai_tts"]["model"] = openai_tts_model
     config_data["openai_tts"]["voice"] = openai_tts_voice
 
@@ -266,8 +268,8 @@ with gr.Blocks() as demo:
                     inputs=[openai_api_input, openai_api_key_input,
                         chatgpt_model_dropdown, chatgpt_temperature_input, chatgpt_max_tokens_input, chatgpt_top_p_input,
                         chatgpt_presence_penalty_input, chatgpt_frequency_penalty_input, chatgpt_preset_input,
-                        openai_tts_model_dropdown, openai_tts_voice_dropdown],
+                        openai_tts_api_ip_port_input, openai_tts_api_key_input, openai_tts_model_dropdown, openai_tts_voice_dropdown],
                     outputs=output_label
                 )
 
-demo.launch()
+demo.launch(share=config.get("gradio", "share"))
