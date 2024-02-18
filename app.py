@@ -30,6 +30,14 @@ chatgpt = Chatgpt(config.get("openai"), config.get("chatgpt"))
 
 my_tts = MY_TTS(config_path)
 
+config_data = None
+
+try:
+    with open(config_path, 'r', encoding="utf-8") as config_file:
+        config_data = json.load(config_file)
+except Exception as e:
+    logging.error(f"无法读取配置文件！\n{e}")
+
 
 """
 通用函数
@@ -81,11 +89,11 @@ def send_msg(audio, text):
         logging.info(f"对话返回：{chat_ret}")
 
         data = {
-            "type": config.get("openai_tts", "type"),
-            "api_ip_port": config.get("openai_tts", "api_ip_port"),
-            "model": config.get("openai_tts", "model"),
-            "voice": config.get("openai_tts", "voice"),
-            "api_key": config.get("openai_tts", "api_key"),
+            "type": config_data["openai_tts"]["type"],
+            "api_ip_port": config_data["openai_tts"]["api_ip_port"],
+            "model": config_data["openai_tts"]["model"],
+            "voice": config_data["openai_tts"]["voice"],
+            "api_key": config_data["openai_tts"]["api_key"],
             "content": chat_ret
         }
         audio_path = my_tts.openai_tts_api(data)
@@ -100,7 +108,11 @@ def send_msg(audio, text):
         return None
     
 # 保存配置
-def save_config(api, api_key, model, temperature, max_tokens, top_p, presence_penalty, frequency_penalty, preset, openai_tts_api_ip_port, openai_tts_api_key, openai_tts_model, openai_tts_voice):
+def save_config(api, api_key, model, temperature, max_tokens, top_p, presence_penalty, frequency_penalty, preset, 
+                openai_tts_api_ip_port, openai_tts_api_key, openai_tts_model, openai_tts_voice,
+                gradio_share, gradio_save_local):
+    global config_data, chatgpt
+
     try:
         with open(config_path, 'r', encoding="utf-8") as config_file:
             config_data = json.load(config_file)
@@ -137,9 +149,18 @@ def save_config(api, api_key, model, temperature, max_tokens, top_p, presence_pe
     config_data["chatgpt"]["frequency_penalty"] = float(frequency_penalty)
     config_data["chatgpt"]["preset"] = preset
     config_data["openai_tts"]["api_ip_port"] = openai_tts_api_ip_port
-    config_data["openai_tts"]["api_key"] = openai_tts_api_key
+    config_data["openai_tts"]["api_key"] = openai_tts_api_key.strip()
     config_data["openai_tts"]["model"] = openai_tts_model
     config_data["openai_tts"]["voice"] = openai_tts_voice
+    config_data["gradio"]["share"] = gradio_share
+    config_data["gradio"]["save_local"] = gradio_save_local
+
+    # 重载chatgpt
+    chatgpt = Chatgpt(config_data["openai"], config_data["chatgpt"])
+    
+    if False == gradio_save_local:
+        logging.info("配置已加载")
+        return "配置已加载"
 
     # 写入配置到配置文件
     try:
@@ -260,6 +281,10 @@ with gr.Blocks() as demo:
                 )
         with gr.Group():
             with gr.Row():
+                gradio_share_checkbox = gr.Checkbox(value=config.get("gradio", "share"), label="生成公网链接")
+                gradio_save_local_checkbox = gr.Checkbox(value=config.get("gradio", "save_local"), label="保存配置到本地文件")
+        with gr.Group():
+            with gr.Row():
                 save_btn = gr.Button("保存")
                 output_label = gr.Label(label="结果")
 
@@ -268,7 +293,8 @@ with gr.Blocks() as demo:
                     inputs=[openai_api_input, openai_api_key_input,
                         chatgpt_model_dropdown, chatgpt_temperature_input, chatgpt_max_tokens_input, chatgpt_top_p_input,
                         chatgpt_presence_penalty_input, chatgpt_frequency_penalty_input, chatgpt_preset_input,
-                        openai_tts_api_ip_port_input, openai_tts_api_key_input, openai_tts_model_dropdown, openai_tts_voice_dropdown],
+                        openai_tts_api_ip_port_input, openai_tts_api_key_input, openai_tts_model_dropdown, openai_tts_voice_dropdown,
+                        gradio_share_checkbox, gradio_save_local_checkbox],
                     outputs=output_label
                 )
 
