@@ -14,7 +14,9 @@
 
 # 效果图
 ![0 0_}Y(6FS6NE5WZ64T2L L](https://github.com/Ikaros-521/voice_talk_chatgpt/assets/40910637/1f8620a6-5575-4694-83a2-556f118da6df)
-![(1EC}2NA3W}8ZTI~DWXSC2O](https://github.com/Ikaros-521/voice_talk_chatgpt/assets/40910637/02c5e89c-2b90-4a48-b4e5-e1f560c261dc)
+
+![image](https://github.com/Ikaros-521/voice_talk_chatgpt/assets/40910637/e3a72719-863f-4622-a102-5afd643f5c40)
+
 
 
 # 更新日志
