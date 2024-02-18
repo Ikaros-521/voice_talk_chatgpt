@@ -295,7 +295,8 @@ with gr.Blocks() as demo:
                         chatgpt_presence_penalty_input, chatgpt_frequency_penalty_input, chatgpt_preset_input,
                         openai_tts_api_ip_port_input, openai_tts_api_key_input, openai_tts_model_dropdown, openai_tts_voice_dropdown,
                         gradio_share_checkbox, gradio_save_local_checkbox],
-                    outputs=output_label
+                    outputs=output_label,
+                    js=None
                 )
 
 demo.launch(share=config.get("gradio", "share"))

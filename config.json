@@ -1,6 +1,6 @@
 {
   "openai": {
-    "api": "https://api.openai.com/v11",
+    "api": "https://api.openai.com/v1",
     "api_key": [
       "你的OpenAI密钥"
     ]
