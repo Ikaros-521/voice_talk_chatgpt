@@ -4,6 +4,8 @@
 
 # 使用
 
+在线体验：[https://huggingface.co/spaces/Ikaros521/voice_talk_chatgpt](https://huggingface.co/spaces/Ikaros521/voice_talk_chatgpt)  
+
 安装Python，个人推荐3.10  
 安装依赖：`pip install -r requirements.txt`  
 运行程序：`python app.py`  
