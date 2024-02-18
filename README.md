@@ -9,7 +9,7 @@
 安装Python，个人推荐3.10  
 安装依赖：`pip install -r requirements.txt`  
 运行程序：`python app.py`  
-浏览器访问（IP不一定固定，看具体日志输出）：`http://localhost:7860/`  
+浏览器访问（端口不一定固定，看具体日志输出）：`http://localhost:7860/`  
 打开页面后，进入`配置页`完成基础配置后，即可返回`对话页`进行聊天。  
 
 # 效果图
